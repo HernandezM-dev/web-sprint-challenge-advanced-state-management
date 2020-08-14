@@ -18,7 +18,7 @@ const SmurfForm = (props) =>{
     }
 
     const onSubmit = evt => {
-        // evt.preventDefault()
+        evt.preventDefault()
         const newSmurf = {
             name: formValues.name.trim(),
             age: formValues.age.trim(),
@@ -29,18 +29,16 @@ const SmurfForm = (props) =>{
         axios.post("http://localhost:3333/smurfs", newSmurf)
         .then((res) =>{
             // dispatch({type: POST_SMURF_DATA_SUCCESS, payload: res.data});
+            setFormValues(initialFormValues)     
         })
         .catch((err) => {
             console.log(err)
         })
-        .finally(
-            setFormValues(initialFormValues)
-        )
       }
 
       useEffect(() => {
         props.fetchSmurfs();
-      },[]);
+      },[formValues]);
     
       const onInputChange = evt => {
         const { name, value } = evt.target
